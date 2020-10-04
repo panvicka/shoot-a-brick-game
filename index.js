@@ -14,7 +14,7 @@ const GAME_HEIGHT = 500;
 
 
 const game = new Game(GAME_WIDTH, GAME_HEIGHT);
-game.start();
+//game.start();
 
 
 

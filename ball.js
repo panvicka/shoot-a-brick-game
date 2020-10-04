@@ -10,17 +10,21 @@ export default class Ball {
 
         this.game = game;
 
+        this.reset();
+    }
+
+    reset() {
         this.position = {
-            x: 10,
-            y: 10,
+            x: 300,
+            y: 400,
         }
         this.speed = {
-            x: 2,
-            y: 2
+            x: 4,
+            y: -4
         }
     }
 
-    draw(ctx) {       
+    draw(ctx) {
         ctx.drawImage(this.image, this.position.x, this.position.y, this.size, this.size);
     }
 
@@ -32,37 +36,42 @@ export default class Ball {
 
         // wall on the left or right 
         if (this.position.x + this.size > this.gameWidth || this.position.x < 0) {
-            this.speed.x= -this.speed.x;
+            this.speed.x = -this.speed.x;
         }
-        // wall of top or bottom
-        if (this.position.y+this.size > this.gameHeight || this.position.y < 0) {
-            this.speed.y= -this.speed.y;
+        // wall of top 
+        if (this.position.y < 0) {
+            this.speed.y = -this.speed.y;
+        }
+
+        if (this.position.y + this.size > this.gameHeight) {
+            this.game.lives--;
+            this.reset();
         }
 
         if (detectCollision(this, this.game.paddle)) {
-            this.speed.y= -this.speed.y;
+            this.speed.y = -this.speed.y;
             this.position.y = this.game.paddle.position.y - this.size;
         }
-        
-/*         // wall on the left or right 
-        if (this.position.x + this.size > this.gameWidth || this.position.x < 0) {
-            this.speed.x= -this.speed.x;
-        }
-        // wall of top or bottom
-        if (this.position.y+this.size > this.gameHeight || this.position.y < 0) {
-            this.speed.y= -this.speed.y;
-        }
 
-        //check collision with paddle 
-        const bottomOfBall = this.position.y+ this.size;
-        const topOfPaddle = this.game.paddle.position.y;
-        const leftSideOfPaddle = this.game.paddle.position.x;
-        const rightSideOfPaddle = this.game.paddle.position.x+this.game.paddle.width;
-        console.log({bottomOfBall, topOfPaddle});
+        /*         // wall on the left or right 
+                if (this.position.x + this.size > this.gameWidth || this.position.x < 0) {
+                    this.speed.x= -this.speed.x;
+                }
+                // wall of top or bottom
+                if (this.position.y+this.size > this.gameHeight || this.position.y < 0) {
+                    this.speed.y= -this.speed.y;
+                }
         
-        if (topOfPaddle <= bottomOfBall && (this.position.x >= leftSideOfPaddle && this.position.x <= rightSideOfPaddle)) {
-            this.speed.y= -this.speed.y;
-        }  */
+                //check collision with paddle 
+                const bottomOfBall = this.position.y+ this.size;
+                const topOfPaddle = this.game.paddle.position.y;
+                const leftSideOfPaddle = this.game.paddle.position.x;
+                const rightSideOfPaddle = this.game.paddle.position.x+this.game.paddle.width;
+                console.log({bottomOfBall, topOfPaddle});
+                
+                if (topOfPaddle <= bottomOfBall && (this.position.x >= leftSideOfPaddle && this.position.x <= rightSideOfPaddle)) {
+                    this.speed.y= -this.speed.y;
+                }  */
 
     }
 
