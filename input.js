@@ -2,7 +2,7 @@ import Game from "./game.js";
 
 export default class InputHandler {
 
-    constructor(paddle,game) {
+    constructor(paddle, game) {
         document.addEventListener('keydown', event => {
             //alert(event.key);
             switch (event.key) {
@@ -32,11 +32,11 @@ export default class InputHandler {
 
                     break;
                 case " ":
-                   game.togglePause(); 
+                    game.togglePause();
                     break;
-                    case "Enter":
-                        game.start(); 
-                         break;
+                case "Enter":
+                    game.start();
+                    break;
                 default:
                     break;
 

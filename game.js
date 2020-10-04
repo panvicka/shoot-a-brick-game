@@ -3,6 +3,7 @@ import InputHandler from './input.js';
 import Ball from './ball.js';
 
 import { buildLevel, level1, level2, level3 } from './levels.js';
+import StatusBar from './statusBar.js';
 
 const GAMESTATES = {
     PAUSED: 0,
@@ -16,13 +17,26 @@ export default class Game {
 
     constructor(gameWidth, gameHeight) {
 
+
+        this.userNameInput = document.getElementById("userName");
+        this.gameLogo = document.getElementById("imglogo");
+
+        this.username = "";
+
+        console.log(this.userNameInput);
+
         this.gameHeight = gameHeight;
         this.gameWidth = gameWidth;
+        this.gameStatusBarHeight = 30;
 
         this.gameState = GAMESTATES.MENU;
 
         this.paddle = new Paddle(this);
         this.ball = new Ball(this);
+
+
+        this.statusBar = new StatusBar(this);
+
         new InputHandler(this.paddle, this);
         this.gameObjects = [];
 
@@ -36,7 +50,12 @@ export default class Game {
 
 
     start() {
-        console.log('want to be started');
+        this.username = this.userNameInput.value;
+        console.log('username value' + this.username);
+
+        if (this.username == undefined) {
+            this.username = "Anonymous"
+        }
         this.gameState = GAMESTATES.RUNNING;
         this.ball.reset();
 
@@ -44,7 +63,7 @@ export default class Game {
         this.gameObjects = [
             this.ball,
             this.paddle,
-
+            this.statusBar,
         ];
 
     }
@@ -82,6 +101,10 @@ export default class Game {
 
         [...this.gameObjects, ...this.bricks].forEach(object => object.draw(ctx));
 
+        if (this.gameState != GAMESTATES.MENU) {
+            
+            this.userNameInput.classList.add("hidden");
+        }
 
         if (this.gameState === GAMESTATES.PAUSED) {
             ctx.rect(0, 0, this.gameWidth, this.gameHeight);
@@ -101,9 +124,12 @@ export default class Game {
             ctx.fill();
 
             ctx.font = "30px Arial"
-            ctx.fillStyle = "white";
+            ctx.fillStyle = "rgba(255, 255, 255, 0.61)";
             ctx.textAlign = "center";
-            ctx.fillText("press ENTER to start", this.gameWidth / 2, this.gameHeight / 2);
+            ctx.drawImage(this.gameLogo, 160, 20);
+
+            ctx.fillText("choose your username and", this.gameWidth / 2, 320);
+            ctx.fillText("press ENTER to start", this.gameWidth / 2, 350);
 
         }
 
@@ -138,8 +164,10 @@ export default class Game {
     togglePause() {
         if (this.gameState === GAMESTATES.PAUSED) {
             this.gameState = GAMESTATES.RUNNING;
-        } else {
+        } else if (this.gameState === GAMESTATES.RUNNING) {
             this.gameState = GAMESTATES.PAUSED;
+        } else {
+            //do nothing 
         }
     }
 

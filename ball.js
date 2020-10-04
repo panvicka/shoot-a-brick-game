@@ -4,9 +4,10 @@ export default class Ball {
     constructor(game) {
         this.image = document.getElementById("imgBall");
 
-        this.size = 16;
+        this.size = 25;
         this.gameWidth = game.gameWidth;
         this.gameHeight = game.gameHeight;
+        this.gameStatusBarHeight = game.gameStatusBarHeight;
 
         this.game = game;
 
@@ -25,7 +26,15 @@ export default class Ball {
     }
 
     draw(ctx) {
-        ctx.drawImage(this.image, this.position.x, this.position.y, this.size, this.size);
+
+ /*        ctx.beginPath();
+        ctx.arc(this.position.x, this.position.y, this.size/2, 0, 2 * Math.PI, false);
+        ctx.fillStyle = 'white';
+        ctx.fill();
+    
+        ctx.stroke();
+ */
+       ctx.drawImage(this.image, this.position.x, this.position.y, this.size, this.size);
     }
 
     update(deltaTime) {
@@ -39,7 +48,7 @@ export default class Ball {
             this.speed.x = -this.speed.x;
         }
         // wall of top 
-        if (this.position.y < 0) {
+        if (this.position.y < this.gameStatusBarHeight) {
             this.speed.y = -this.speed.y;
         }
 

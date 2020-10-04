@@ -6,9 +6,9 @@ export default class Paddle {
         this.gameHeight = game.gameHeight;
 
         this.width = 150;
-        this.height = 30;
+        this.height = 10;
 
-        this.maxSpeed = 5;
+        this.maxSpeed = 10;
         this.speed = 0;
 
 
@@ -22,7 +22,7 @@ export default class Paddle {
     draw(ctx) {
         //console.log('hello');
         //console.log(this);
-        ctx.fillStyle = "#708ED2"
+        ctx.fillStyle = "white"
         ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
     }
 
