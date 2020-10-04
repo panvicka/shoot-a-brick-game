@@ -10,7 +10,7 @@ import Brick from './brick.js';
         if (brick === 1) {
           let position = {
             x: 80 * brickIndex,
-            y: 40 + 40 * rowIndex
+            y: 60 + 40 * rowIndex
           };
           bricks.push(new Brick(game, position));
         }
@@ -25,7 +25,7 @@ import Brick from './brick.js';
 
 
  const level1 = [
-    [1, 1, 1, 0, 0, 1, 0, 1, 1, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 1, 1, 0, 1, 1, 1, 1, 1, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
